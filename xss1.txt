@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "API Title"
+    "title": "<style>@keyframes x{}</style><xss style="animation-name:x" onanimationend="alert(1)"></xss>"
   },
   "paths": {
     "/endpoint": {
@@ -10,7 +10,7 @@
         "summary": "Get endpoint",
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "<body onbeforeprint=console.log(1)>",
             "schema": {
               "$ref": "#/definitions/Response"
             }
