@@ -1,0 +1,66 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Title"
+  },
+  "paths": {
+    "/endpoint": {
+      "get": {
+        "summary": "Get endpoint",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Response": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Here is a message with potential XSS: <script>alert('XSS');</script>"
+        }
+      }
+    }
+  }
+}
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Title"
+  },
+  "paths": {
+    "/endpoint": {
+      "get": {
+        "summary": "Get endpoint",
+        "responses": {
+          "200": {
+            "description": "Successful response with a message",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Response": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "This message may contain an XSS payload if manipulated: <script>alert('XSS');</script>"
+        }
+      }
+    }
+  }
+}
