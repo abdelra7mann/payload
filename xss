@@ -1,1 +1,1 @@
-<script>alert('XSS');</script>
+{ "payload": "<script>alert('XSS');</script>" }
