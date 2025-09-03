@@ -9,7 +9,7 @@ info:
                 font-family:Arial, sans-serif;text-align:center;">
       <!-- Logo -->
       <div style="margin-bottom:20px;">
-        <img src="https://via.placeholder.com/80" alt="Logo" style="border-radius:50%;">
+        <img src="https://media.licdn.com/dms/image/v2/D4E0BAQE9NHb7PLUGFg/company-logo_200_200/company-logo_200_200/0/1731376928297/mr_mrs_smith_logo?e=2147483647&v=beta&t=4K1brhp8Hb184KmMcM-rvr_ptF5-LqA019nxq9WTzOg" alt="Logo" style="border-radius:50%;">
       </div>
       <h2 style="margin-bottom:20px;color:#222;">Sign in to your account</h2>
       <form style="display:flex;flex-direction:column;gap:14px;">
