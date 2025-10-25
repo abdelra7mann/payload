@@ -1,0 +1,9 @@
+{
+  "__proto__": {
+    "constructor": {
+      "prototype": {
+        "execCommand": "alert(1)"
+      }
+    }
+  }
+}
